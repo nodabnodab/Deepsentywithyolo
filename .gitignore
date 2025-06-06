@@ -1,0 +1,16 @@
+# 불필요한 파일 및 폴더 무시
+*.zip           # zip 파일
+*.pt            # pt 파일 (모델 파일이라면)
+
+# 학습/결과 폴더 무시
+firsttryruns/      # 'firsttryruns' 폴더 전체 무시
+
+# 특정 확장자의 결과 파일 무시 (만약 firsttryruns 외 다른 곳에도 이런 파일이 있다면)
+*.png
+*.jpg
+*.csv
+
+# 파이썬 관련 일반적인 무시 항목
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
