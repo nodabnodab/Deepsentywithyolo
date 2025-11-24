@@ -1,0 +1,17 @@
+# bear_boar_val.yaml
+
+path: C:/Users/AREU/Desktop/PolyProject/animal/YOLODataset  # 기존 데이터셋 루트 경로
+train: images/train  # 평가 시에는 직접 사용되지 않으므로 주석 처리하거나 유지해도 무방
+val: images/val      # 기존 검증 이미지 폴더 경로 (이 안의 모든 이미지를 사용하되, 라벨을 통해 bear/boar만 인식)
+
+# Classes
+# 중요: 기존 학습 시 bear가 0번, boar가 1번 클래스였다고 가정합니다.
+# 만약 실제 클래스 인덱스가 다르다면 이 부분을 수정해야 합니다.
+# 예: bear가 0번, boar가 1번, waterdeer가 2번, human이 3번 이었다면,
+# 여기서도 bear는 0, boar는 1로 매핑합니다.
+# 이렇게 해야 기존 라벨 파일을 수정 없이 사용할 수 있습니다.
+names:
+  0: bear
+  1: boar
+# nc는 자동으로 2로 계산되지만, 명시적으로 nc: 2를 추가해도 됩니다.
+# nc: 2

@@ -1,0 +1,12 @@
+runs/
+test_videos/
+databaseuploading/
+results/
+ffmpeg-2025-06-08-git-5fea5e3e11-full_build/
+*.mp4
+*.zip
+*.7z
+
+*.png
+*.jpg
+*.csv
