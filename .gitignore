@@ -14,3 +14,6 @@ firsttryruns/      # 'firsttryruns' 폴더 전체 무시
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# Firebase Credentials (보안 위반 방지)
+databaseuploading/fkey/

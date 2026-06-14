@@ -1,0 +1,10 @@
+path: C:\Users\AREU\Desktop\PolyProject\animal\YOLODataset
+train: images/train
+val: images/val
+test: 
+
+names:
+  0: bear
+  1: boar
+  2: waterdeer
+  3: human
