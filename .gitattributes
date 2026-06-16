@@ -1,3 +1,4 @@
 Amimals.ipynb filter=lfs diff=lfs merge=lfs -text
 Amimalscopy2025.ipynb filter=lfs diff=lfs merge=lfs -text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
+*.onnx filter=lfs diff=lfs merge=lfs -text

@@ -1,4 +1,4 @@
-path: C:\Users\AREU\Desktop\PolyProject\animal\YOLODataset
+path: c:/Users/arcre/Desktop/PolyProject/animal/YOLODataset
 train: images/train
 val: images/val
 test: 
