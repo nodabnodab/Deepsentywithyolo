@@ -22,3 +22,4 @@ databaseuploading/fkey/
 *.engine
 runs/
 inference_results/
+cpp/build/
