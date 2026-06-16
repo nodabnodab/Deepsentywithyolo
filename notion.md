@@ -20,8 +20,9 @@
 *   `best.pt`, `yolov8n.pt`, `yolov11n.pt` 모델을 `ONNX`로 내보내고 `trtexec`를 사용해 RTX 4070 Ti에 최적화된 **TensorRT FP16 가속 엔진 파일(`.engine`)**로 컴파일했습니다.
 
 ### [2단계] C++ 고성능 추론 엔진 구현
-*   PyTorch Python의 런타임 오버헤드를 모두 걷어내기 위해 **C++ 기반 TensorRT 추론 러너**를 구현했습니다.
-*   **Zero-CPU-Blocking 비동기화:** `cudaHostAlloc`로 CPU Pinned Memory를 직접 확보하고, BGR ➡️ CHW 평면 분할 작업(`cv::split`)을 메모리에 다이렉트로 매핑한 뒤, CUDA 스트림(`cudaMemcpyAsync`)을 활용하여 CPU 블로킹 없이 GPU 추론 연산과 메모리 전송을 병렬 비동기 처리했습니다.
+*   **C++ 기반 고속 런타임 최적화:** PyTorch Python의 런타임 오버헤드를 모두 걷어내기 위해 **C++ 기반 TensorRT 추론 러너**를 구현했습니다.
+*   **Pinned Memory & Zero-Copy 효과 구현:** `cudaHostAlloc`로 CPU Page-locked (Pinned) Memory를 직접 확보하고, BGR ➡️ CHW 평면 분할 작업(`cv::split`)을 해당 메모리에 다이렉트로 매핑했습니다. 이를 통해 CPU 블로킹을 차단하고, CUDA 스트림(`cudaMemcpyAsync`) 기반의 비동기 DMA(Direct Memory Access) 전송을 실행하여 PC 환경에서의 Zero-Copy 전송 효과를 완벽히 구현했습니다.
+    *   *💡 외장 GPU(PC)와 Jetson의 차이점 반영:* 통합 메모리(Unified Memory)를 쓰는 Jetson과 달리 외장 GPU(RTX 4070 Ti) 환경에서는 물리적 메모리가 분리되어 있습니다. 따라서 GPU가 호스트 메모리를 실시간으로 매번 읽는 Mapped Zero-Copy 대신, Pinned Memory 버퍼와 비동기 DMA 복사를 연동하여 고속 VRAM(GDDR6X)으로 전송한 후 연산하는 구조가 처리량(Throughput) 극대화에 훨씬 유리하므로 이 설계를 채택했습니다.
 *   **커스텀 클래스별 NMS(Class-Specific NMS) 구현:** 컨테이너 내의 OpenCV가 DNN 모듈 누락으로 빌드된 제약을 극복하기 위해, 이중 검출 박스 억제(IoU 계산) 로직을 C++로 자체 직접 작성하여 완벽하게 구동시켰습니다.
 
 ### [3단계] Baseline 모델 성능/정확도 정량적 비교 검증
